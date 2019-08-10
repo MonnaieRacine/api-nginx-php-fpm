@@ -31,4 +31,15 @@ RUN	mkdir -p php/ext/cassandra && \
 RUN	docker-php-ext-install cassandra && \
     docker-php-source delete
 
+# Must delete as much as possible from those to be ligthweight and minimalistic as possible
+# But when removing all cassandra fails to work
+RUN apk del \
+	libuv-dev \
+	make \
+	cmake \
+	g++ \
+	gmp-dev \
+	php7-dev \
+	pcre-dev
+
 WORKDIR "/var/www/html"
