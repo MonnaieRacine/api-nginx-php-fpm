@@ -25,10 +25,20 @@ RUN	git clone https://github.com/datastax/php-driver.git && \
 	make && \
 	make install
 
-RUN	mkdir -p php/ext/cassandra && \
-	cp -r php-driver/ext/* php/ext/cassandra
+#RUN	mkdir -p php/ext/cassandra && \
+#	cp -r php-driver/ext/* php/ext/cassandra
 
-RUN	docker-php-ext-install cassandra && \
-    docker-php-source delete
+#RUN	docker-php-ext-install cassandra && \
+#    docker-php-source delete
+
+RUN cd php-driver/ext && \
+	phpize && \
+	mkdir ../build && \
+	cd ../build && \
+	../ext/configure && \
+	make && \
+	make install
+
+RUN echo $'\n[cassandra]\n; DataStax PHP Driver for Apache Cassandra\nextension=cassandra.so' >> ${php_vars}
 
 WORKDIR "/var/www/html"
