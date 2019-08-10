@@ -5,10 +5,10 @@ LABEL maintainer="M-3000 & Ilone <ilonemail2@protonmail.com>"
 WORKDIR "/usr/src"
 
 RUN apk update && apk upgrade &&\
-    apk add --no-cache \
+	apk add --no-cache \
 	libuv-dev \
 	make \
-    cmake \
+	cmake \
 	g++ \
 #	openssl-dev \ #conflict with libressl
 	gmp-dev \
@@ -29,6 +29,6 @@ RUN	mkdir -p php/ext/cassandra && \
 	cp -r php-driver/ext/* php/ext/cassandra
 
 RUN	docker-php-ext-install cassandra && \
-    docker-php-source delete
+	docker-php-source delete
 
 WORKDIR "/var/www/html"
